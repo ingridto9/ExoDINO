@@ -1,0 +1,46 @@
+experiment_name: exodino_base_fold4
+seed: 42
+
+data:
+  root_dir: /path/to/ExoDisc
+  # Change these names only if the downloaded Zenodo folders use different names.
+  operation_prefix: op
+  images_dir_name: images
+  masks_dir_name: masks_semantic
+  train_operations: [1, 2, 3]
+  val_operations: [4]
+  image_size: 504
+  num_workers: 4
+  batch_size: 8
+  # Keep background-only frames: they are valid samples in the released dataset.
+  include_empty_masks: true
+  class_names: [background, aspirator, burr, retractor, spatula, forceps, scalpel,
+                curettes, electrocautery, dura, ligament, herniation, disc]
+
+model:
+  model_name: facebook/dinov2-base
+  num_classes: 13
+  selected_layers: [3, 6, 9, 12]
+  freeze_backbone: true
+  unfreeze_last_n_layers: 1
+  decoder_dim: 256
+  dropout: 0.1
+  interpolate_pos_encoding: true
+
+augmentation:
+  # Training uses the thesis custom geometric + photometric transform and CutMix.
+  enabled: true
+  cutmix_probability: 0.5
+  cutmix_alpha: 1.0
+
+training:
+  epochs: 50
+  lr_backbone: 1.0e-5
+  lr_head: 1.0e-4
+  weight_decay: 1.0e-4
+  dice_weight: 1.0
+  ce_weight: 1.0
+  amp: true
+  resume: null
+
+output_dir: outputs
