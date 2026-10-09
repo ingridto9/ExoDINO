@@ -1,6 +1,6 @@
 # ExoDINO
-![Schema](image.png)
 PyTorch implementation of ExoDINO for multi-class semantic segmentation in open lumbar microdiscectomy images. The model combines multi-level DINOv2 features from Transformer blocks 3, 6, 9, and 12 with a lightweight convolutional decoder.
+![Schema](image.png)
 
 ## Repository layout
 
