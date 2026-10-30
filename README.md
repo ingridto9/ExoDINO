@@ -42,7 +42,7 @@ The retained comparison and ablation configurations are under `configs/compariso
 
 ## Evaluate
 
-Evaluate a fold checkpoint and write per-class IoU to an output CSV:
+Evaluate a fold checkpoint and write per-class IoU, Dice, precision, recall, and sensitivity to an output CSV. Classes absent from the ground truth are marked N/A; foreground macro scores include only ground-truth-present classes:
 
 ```bash
 python evaluate.py --config configs/final/exodino3_fold1.yaml \
