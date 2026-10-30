@@ -1,0 +1,63 @@
+experiment_name: fold3
+seed: 42
+data:
+  root_dir: ${EXODISC_DATA_ROOT}
+  operation_prefix: op
+  images_dir_name: images
+  masks_dir_name: masks_semantic
+  train_operations:
+  - 1
+  - 2
+  - 4
+  val_operations:
+  - 3
+  image_size: 504
+  num_workers: 4
+  batch_size: 8
+  include_empty_masks: true
+  class_names:
+  - background
+  - aspirator
+  - burr
+  - retractor
+  - spatula
+  - forceps
+  - scalpel
+  - curettes
+  - electrocautery
+  - dura
+  - ligament
+  - herniation
+  - disc
+model:
+  model_variant: exodino3
+  model_name: facebook/dinov2-base
+  num_classes: 13
+  selected_layers:
+  - 10
+  - 11
+  - 12
+  decoder_dim: 256
+  dropout: 0.1
+  interpolate_pos_encoding: true
+overlay_mask:
+  enabled: true
+  x0_fraction: 0.0
+  y0_fraction: 0.0
+  x1_fraction: 0.2
+  y1_fraction: 0.16
+  fill: imagenet_mean
+augmentation:
+  enabled: true
+  cutmix_probability: 0.5
+  cutmix_alpha: 1.0
+training:
+  epochs: 50
+  lr_backbone: 1.0e-06
+  lr_head: 0.0001
+  weight_decay: 0.0001
+  dice_weight: 1.0
+  ce_weight: 1.0
+  amp: true
+  resume: null
+output_dir: runs/exodino3

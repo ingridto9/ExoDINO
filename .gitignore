@@ -1,0 +1,8 @@
+artifacts/checkpoints/**/*.pt
+data/
+runs/
+outputs/
+__pycache__/
+*.pyc
+.venv/
+.env
